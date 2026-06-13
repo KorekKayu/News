@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TeleMirror News — Portal berita dan informasi terkini real-time.">
+  <title>TeleMirror News — Berita Terkini</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+</head>
+<body>
+
+  <!-- ── TOP BAR ─────────────────────────────── -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="topbar-date" id="topbarDate"></span>
+      <div class="topbar-right">
+        <div class="sse-indicator" id="sseIndicator">
+          <span class="sse-dot"></span>
+          <span id="sseStatus">Menghubungkan...</span>
+        </div>
+        <button class="topbar-btn" id="addChannelBtn" title="Kelola Sumber">⚙️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HEADER ──────────────────────────────── -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-icon">📰</span>
+        <div class="logo-text-wrap">
+          <span class="logo-text">TeleMirror</span>
+          <span class="logo-sub">BERITA & INFORMASI</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" data-cat="all">Terbaru</a>
+        <a href="#" class="nav-link" data-cat="text">Artikel</a>
+        <a href="#" class="nav-link" data-cat="media">Foto & Video</a>
+        <a href="#" class="nav-link" data-cat="link">Link</a>
+      </nav>
+      <div class="header-search">
+        <input type="text" id="searchInput" placeholder="Cari berita..." autocomplete="off">
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── BREAKING NEWS TICKER ────────────────── -->
+  <div class="ticker-bar" id="tickerBar" style="display:none">
+    <div class="container ticker-inner">
+      <span class="ticker-label">BREAKING</span>
+      <div class="ticker-scroll">
+        <span class="ticker-text" id="tickerText"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN CONTENT ────────────────────────── -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero-section" id="heroSection" style="display:none">
+        <article class="hero-card" id="heroCard"></article>
+        <div class="hero-sidebar" id="heroSidebar"></div>
+      </section>
+
+      <!-- Section Header -->
+      <div class="section-divider">
+        <h2 class="section-heading">Berita Terbaru</h2>
+        <span class="article-count" id="postCount">0 artikel</span>
+      </div>
+
+      <!-- News Grid -->
+      <div class="news-grid" id="newsGrid"></div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="empty-icon">📭</div>
+        <h3>Belum Ada Berita</h3>
+        <p>Klik ⚙️ di atas untuk menambahkan sumber berita.</p>
+      </div>
+
+      <!-- Load More -->
+      <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+        <button class="load-more-btn" id="loadMoreBtn">Muat lebih banyak</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">📰 TeleMirror News</span>
+        <p>Portal berita dan informasi terkini.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <a href="#">Beranda</a>
+        <a href="#">Terbaru</a>
+        <a href="#">Artikel</a>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a href="#">Tentang</a>
+        <a href="#">Kontak</a>
+        <a href="#">Kebijakan Privasi</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">© 2026 TeleMirror News. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- ── SETTINGS MODAL ──────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h3>⚙️ Kelola Sumber Berita</h3>
+      <p>Tambahkan sumber berita (username channel publik).</p>
+      <input type="text" id="channelInput" placeholder="Contoh: durov, telegram..." autocomplete="off">
+      <div id="channelList"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modalCancel">Tutup</button>
+        <button class="btn-primary" id="modalAdd">Tambahkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ARTICLE READER ──────────────────────── -->
+  <div class="reader-overlay" id="readerOverlay">
+    <div class="reader-panel">
+      <div class="reader-header">
+        <button class="reader-back" id="readerClose">← Kembali</button>
+      </div>
+      <div class="reader-body" id="readerContent"></div>
+    </div>
+  </div>
+
+  <!-- ── NEW POSTS BANNER ────────────────────── -->
+  <button class="new-posts-banner" id="newPostsBanner">
+    <span class="banner-pulse"></span>
+    <span id="bannerText">Berita baru tersedia</span>
+  </button>
+
+  <!-- ── STATUS TOAST ────────────────────────── -->
+  <div class="status-toast" id="statusBar"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
